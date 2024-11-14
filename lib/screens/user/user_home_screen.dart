@@ -4,7 +4,8 @@ import 'user_history_screen.dart'; // Import halaman riwayat booking
 import 'user_search_screen.dart'; // Import halaman pencarian kampus
 
 class UserHomeScreen extends StatefulWidget {
-  const UserHomeScreen({super.key}); // Convert 'key' to a super parameter and make constructor const
+  const UserHomeScreen(
+      {super.key}); // Convert 'key' to a super parameter and make constructor const
 
   @override
   State<UserHomeScreen> createState() => _UserHomeScreenState();
@@ -23,7 +24,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              scaffoldKey.currentState?.openEndDrawer(); // Gunakan scaffoldKey untuk membuka drawer
+              scaffoldKey.currentState
+                  ?.openEndDrawer(); // Gunakan scaffoldKey untuk membuka drawer
             },
             icon: const Icon(Icons.menu),
           ),
@@ -134,7 +136,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                           spreadRadius: 1,
                           offset: Offset(0, 2),
                         ),
-                        ],
+                      ],
                     ),
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
