@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'user_notification_screen.dart'; // Import halaman notifikasi
 import 'user_history_screen.dart'; // Import halaman riwayat booking
 import 'user_search_screen.dart'; // Import halaman pencarian kampus
+import '../choice_login_screen.dart'; // Import halaman ChoiceLoginScreen
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen(
@@ -75,8 +76,13 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               title: const Text('Logout'),
               onTap: () {
                 Navigator.pop(context); // Tutup drawer
-                // Arahkan kembali ke halaman login
-                Navigator.pushReplacementNamed(context, '/login');
+                // Navigasi ke halaman ChoiceLoginScreen setelah logout
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ChoiceLoginScreen(),
+                  ),
+                );
               },
             ),
           ],

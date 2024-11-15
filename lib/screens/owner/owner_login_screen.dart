@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// Pastikan file register_screen.dart sudah benar.
+import 'owner_home_screen.dart'; // Pastikan file ini sudah diimport
 
 class OwnerLoginScreen extends StatefulWidget {
   const OwnerLoginScreen({super.key});
@@ -15,9 +15,15 @@ class _OwnerLoginScreenState extends State<OwnerLoginScreen> {
 
   void _login() {
     if (_formKey.currentState!.validate()) {
-      // Login logic here
+      // Login logic here, ganti dengan logika autentikasi yang sesungguhnya
       print('Email: ${_emailController.text}');
       print('Password: ${_passwordController.text}');
+
+      // Setelah login berhasil, arahkan ke halaman OwnerHomeScreen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const OwnerHomeScreen()),
+      );
     }
   }
 

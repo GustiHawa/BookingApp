@@ -16,11 +16,13 @@ import 'screens/user/user_listcafe_screen.dart';
 import 'screens/user/user_detailcafe_screen.dart';
 // import 'screens/user/user_booking_screen.dart';
 // import 'screens/user/user_payment_screen.dart';
-// import 'screens/owner/owner_home_screen.dart';
+
+import 'screens/owner/owner_home_screen.dart';
+import 'screens/owner/owner_infopribadi_screen.dart';
+import 'screens/owner/owner_notification_screen.dart';
 // import 'screens/owner/owner_manage_store_screen.dart';
 // import 'screens/owner/owner_order_screen.dart';
 // import 'screens/owner/owner_history_screen.dart';
-// import 'screens/owner/owner_notification_screen.dart';
 // import 'screens/owner/owner_balance_report_screen.dart';
 // import 'screens/admin/admin_dashboard_screen.dart';
 // import 'screens/admin/admin_notification_screen.dart';
@@ -99,11 +101,12 @@ class RumahNugasApp extends StatelessWidget {
             ),
 
         // Owner routes
-        // '/ownerHome': (context) => const OwnerHomeScreen(),
+        '/ownerHome': (context) => const OwnerHomeScreen(),
+        '/ownerNotification': (context) => const OwnerNotificationScreen(),
+        '/ownerInfopribadi': (context) => OwnerInfopribadiScreen(),
         // '/ownerManageStore': (context) => const OwnerManageStoreScreen(),
         // '/ownerOrder': (context) => const OwnerOrderScreen(),
         // '/ownerHistory': (context) => const OwnerHistoryScreen(),
-        // '/ownerNotification': (context) => const OwnerNotificationScreen(),
         // '/ownerBalanceReport': (context) => const OwnerBalanceReportScreen(),
 
         // Admin routes
