@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-// Import screens
+
+// Import screens;
 import 'screens/choice_login_screen.dart' as choice;
 
 // import screens login user, pemilik, dan admin
@@ -23,12 +24,17 @@ import 'screens/owner/owner_notification_screen.dart';
 import 'screens/owner/owner_manage_store_screen.dart';
 import 'screens/owner/owner_history_screen.dart';
 import 'screens/owner/owner_orderan_screen.dart';
-import 'screens/owner/owner_balance_report_screen.dart';
-// import 'screens/admin/admin_dashboard_screen.dart';
-// import 'screens/admin/admin_notification_screen.dart';
-// import 'screens/admin/admin_verification_screen.dart';
-// import 'screens/admin/admin_place_management_screen.dart';
-// import 'screens/admin/admin_commission_report_screen.dart';
+// import 'screens/owner/owner_balance_report_screen.dart';
+
+import 'screens/admin/admin_dashboard_screen.dart';
+import 'screens/admin/admin_notification_screen.dart';
+import 'screens/admin/admin_verification_screen.dart';
+import 'screens/admin/admin_placemanage_screen.dart';
+import 'screens/admin/admin_commissionreport_screen.dart';
+import 'screens/admin/admin_verificationplace_screen.dart';
+import 'screens/admin/admin_detailpayment_screen.dart';
+import 'screens/admin/admin_detailplace_screen.dart';
+
 
 // Define the missing variables
 const primaryColor = Colors.blue;
@@ -48,7 +54,6 @@ class RumahNugasApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Rumah Nugas',
       theme: ThemeData(
         primaryColor: primaryColor,
@@ -108,14 +113,21 @@ class RumahNugasApp extends StatelessWidget {
         '/ownerManageStore': (context) => const OwnerManageStoreScreen(),
         '/ownerOrderan': (context) => const OwnerOrderanScreen(),
         '/ownerHistory': (context) => const OwnerHistoryScreen(),
-        '/ownerBalanceReport': (context) => OwnerBalanceReportScreen(),
+        // '/ownerBalanceReport': (context) => const OwnerBalanceReportScreen(),
 
         // Admin routes
-        // '/adminDashboard': (context) => const AdminDashboardScreen(),
-        // '/adminNotification': (context) => const AdminNotificationScreen(),
-        // '/adminVerification': (context) => const AdminVerificationScreen(),
-        // '/adminPlaceManagement': (context) => const AdminPlaceManagementScreen(),
-        // '/adminCommissionReport': (context) => const AdminCommissionReportScreen(),
+        '/adminDashboard': (context) => const AdminDashboardScreen(),
+        '/adminNotification': (context) => const AdminNotificationScreen(),
+        '/adminVerification': (context) => const AdminVerificationScreen(),
+        '/adminPlaceManage': (context) => const AdminPlaceManageScreen(),
+        '/adminCommissionReport': (context) => const AdminCommissionreportScreen(),
+        '/adminDetailPayment': (context) => const AdminDetailPaymentScreen(buktiTransfer: '',),
+        '/adminVerificationPlace': (context) => const AdminVerificationPlaceScreen(),
+        '/adminDetailPlace': (context) => const AdminDetailPlaceScreen(),
+
+
+
+
       },
     );
   }

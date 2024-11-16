@@ -54,7 +54,6 @@ class _OwnerOrderanScreenState extends State<OwnerOrderanScreen> {
 
 class _PesananItem extends StatelessWidget {
   const _PesananItem({
-    super.key,
     required this.namaCustomer,
     required this.tanggal,
     required this.jumlahKursi,
@@ -121,10 +120,10 @@ class _PesananItem extends StatelessWidget {
                 onPressed: () {
                   // Aksi untuk membatalkan pesanan
                 },
-                child: const Text('Batalkan'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red, // Warna merah untuk batalkan
                 ),
+                child: const Text('Batalkan'),
               ),
             ],
           ),

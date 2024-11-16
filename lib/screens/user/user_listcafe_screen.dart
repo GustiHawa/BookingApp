@@ -8,9 +8,18 @@ class CafeWarkop {
   final double rating;
   final int price;
   final String imageUrl;
+  final String description;
 
-  CafeWarkop(this.name, this.location, this.rating, this.price, this.imageUrl);
+  CafeWarkop({
+    required this.name,
+    required this.location,
+    required this.rating,
+    required this.price,
+    required this.imageUrl,
+    required this.description,
+  });
 }
+
 
 class UserListCafeScreen extends StatefulWidget {
   final String kampus;
@@ -39,7 +48,13 @@ class _UserListCafeScreenState extends State<UserListCafeScreen> {
           final cafe = widget.warkopTerdekat[index];
           return GestureDetector(
             onTap: () {
-              // Navigasi ke halaman detail cafe
+              // Navigasi ke halaman detail cafe dengan mengirimkan data cafe
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserDetailCafeScreen(cafe: cafe),
+                ),
+              );
             },
             child: Card(
               margin: const EdgeInsets.all(10),
@@ -62,7 +77,8 @@ class _UserListCafeScreenState extends State<UserListCafeScreen> {
                       placeholder: (context, url) => const Center(
                         child: CircularProgressIndicator(),
                       ),
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -105,20 +121,102 @@ class _UserListCafeScreenState extends State<UserListCafeScreen> {
   }
 }
 
-// Sample CafeWarkop list with image URLs
-List<CafeWarkop> cafes = [
-  CafeWarkop(
-    'Cafe A',
-    'Jl. Raya No. 1',
-    4.5,
-    50000,
-    'https://images.unsplash.com/photo-1614313369929-3497c6e9ac8d', // Contoh URL gambar
-  ),
-  CafeWarkop(
-    'Cafe B',
-    'Jl. Raya No. 2',
-    4.2,
-    40000,
-    'https://placekitten.com/200/200', // URL fallback
-  ),
-];
+class UserDetailCafeScreen extends StatelessWidget {
+  final CafeWarkop cafe;
+
+  const UserDetailCafeScreen({super.key, required this.cafe});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(cafe.name),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Menampilkan gambar cafe
+              Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16.0),
+                  border: Border.all(color: Colors.blue),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: Image.network(
+                    cafe.imageUrl, // Menggunakan imageUrl dari objek CafeWarkop
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              const Text(
+                'Lokasi Tempat',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0,
+                ),
+              ),
+              const SizedBox(height: 4.0),
+              Text(
+                cafe.location,
+                style: const TextStyle(
+                  fontSize: 14.0,
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              const Text(
+                'Rating Tempat',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0,
+                ),
+              ),
+              const SizedBox(height: 4.0),
+              Text(
+                '${cafe.rating} / 5',
+                style: const TextStyle(
+                  fontSize: 14.0,
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              const Text(
+                'Deskripsi Tempat',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0,
+                ),
+              ),
+              const SizedBox(height: 4.0),
+              Text(
+                'Cafe ini menawarkan suasana yang nyaman dengan pemandangan indah dan berbagai pilihan minuman dan makanan ringan.',
+                style: const TextStyle(
+                  fontSize: 14.0,
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              const Text(
+                'Harga',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0,
+                ),
+              ),
+              const SizedBox(height: 4.0),
+              Text(
+                'Rp. ${cafe.price}', // Menambahkan format Rp. pada harga
+                style: const TextStyle(
+                  fontSize: 14.0,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
+import 'admin_dashboard_screen.dart';
+
+void main() {
+  runApp(const RumahNugasApp());
+}
+
+class RumahNugasApp extends StatelessWidget {
+  const RumahNugasApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Admin Dashboard',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const AdminLoginScreen(),
+        '/adminDashboard': (context) => const AdminDashboardScreen(),
+      },
+    );
+  }
+}
 
 class AdminLoginScreen extends StatefulWidget {
   const AdminLoginScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _AdminLoginScreenState createState() => _AdminLoginScreenState();
 }
 
@@ -15,10 +35,15 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
 
   void _login() {
     if (_formKey.currentState!.validate()) {
-      // Perform login logic here
-      // For example, you can check the username and password
-      // and navigate to the admin dashboard if successful
-      Navigator.pushReplacementNamed(context, '/admin_dashboard');
+      // Contoh login sederhana
+      if (_usernameController.text == 'admin' &&
+          _passwordController.text == 'admin123') {
+        Navigator.pushReplacementNamed(context, '/adminDashboard');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Invalid username or password')),
+        );
+      }
     }
   }
 
@@ -33,7 +58,8 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
         child: Form(
           key: _formKey,
           child: Column(
-            children: <Widget>[
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               TextFormField(
                 controller: _usernameController,
                 decoration: const InputDecoration(labelText: 'Username'),
@@ -44,6 +70,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _passwordController,
                 decoration: const InputDecoration(labelText: 'Password'),
@@ -56,9 +83,11 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                 },
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _login,
-                child: const Text('Login'),
+              Center(
+                child: ElevatedButton(
+                  onPressed: _login,
+                  child: const Text('Login'),
+                ),
               ),
             ],
           ),
