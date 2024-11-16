@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class OwnerInfopribadiScreen extends StatefulWidget {
+  const OwnerInfopribadiScreen({super.key});
+
   @override
   _OwnerInfopribadiScreenState createState() => _OwnerInfopribadiScreenState();
 }
@@ -24,12 +26,12 @@ class _OwnerInfopribadiScreenState extends State<OwnerInfopribadiScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Text('Informasi Pribadi'),
+        title: const Text('Informasi Pribadi'),
       ),
       body: Form(
         key: _formKey,
@@ -39,7 +41,7 @@ class _OwnerInfopribadiScreenState extends State<OwnerInfopribadiScreen> {
             children: [
               TextFormField(
                 controller: _namaBankController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Nama Bank',
                 ),
                 validator: (value) {
@@ -49,10 +51,10 @@ class _OwnerInfopribadiScreenState extends State<OwnerInfopribadiScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
                 controller: _nomorRekeningController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Nomor Rekening',
                 ),
                 validator: (value) {
@@ -65,10 +67,10 @@ class _OwnerInfopribadiScreenState extends State<OwnerInfopribadiScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
                 controller: _namaPemilikController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Nama Pemilik',
                 ),
                 validator: (value) {
@@ -78,13 +80,13 @@ class _OwnerInfopribadiScreenState extends State<OwnerInfopribadiScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     // Process data
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Data berhasil disimpan')),
+                      const SnackBar(content: Text('Data berhasil disimpan')),
                     );
                   }
                 },

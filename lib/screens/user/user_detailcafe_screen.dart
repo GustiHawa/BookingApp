@@ -6,6 +6,7 @@ class UserDetailCafeScreen extends StatelessWidget {
   final String ratingCafe;
   final String deskripsiCafe;
   final String hargaCafe;
+  final String imageUrl; // Menambahkan parameter imageUrl untuk gambar cafe
 
   const UserDetailCafeScreen({
     super.key,
@@ -14,6 +15,7 @@ class UserDetailCafeScreen extends StatelessWidget {
     required this.ratingCafe,
     required this.deskripsiCafe,
     required this.hargaCafe,
+    required this.imageUrl, // Menambahkan parameter imageUrl
   });
 
   @override
@@ -28,11 +30,19 @@ class UserDetailCafeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Menampilkan gambar cafe
               Container(
                 height: 200,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16.0),
                   border: Border.all(color: Colors.blue),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: Image.network(
+                    imageUrl, // Menggunakan imageUrl yang diterima
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(height: 16.0),
@@ -90,7 +100,7 @@ class UserDetailCafeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 4.0),
               Text(
-                hargaCafe,
+                'Rp. $hargaCafe', // Menambahkan format Rp. pada harga
                 style: const TextStyle(
                   fontSize: 14.0,
                 ),

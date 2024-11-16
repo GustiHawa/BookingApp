@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // Import screens
-import 'screens/choice_login_screen.dart';
+import 'screens/choice_login_screen.dart' as choice;
 
 // import screens login user, pemilik, dan admin
 import 'screens/user/user_login_screen.dart';
@@ -12,7 +12,7 @@ import 'screens/user/user_home_screen.dart';
 import 'screens/user/user_notification_screen.dart';
 import 'screens/user/user_history_screen.dart';
 import 'screens/user/user_search_screen.dart';
-import 'screens/user/user_listcafe_screen.dart';
+import 'screens/user/user_listcafe_screen.dart' as listcafe;
 import 'screens/user/user_detailcafe_screen.dart';
 // import 'screens/user/user_booking_screen.dart';
 // import 'screens/user/user_payment_screen.dart';
@@ -20,10 +20,10 @@ import 'screens/user/user_detailcafe_screen.dart';
 import 'screens/owner/owner_home_screen.dart';
 import 'screens/owner/owner_infopribadi_screen.dart';
 import 'screens/owner/owner_notification_screen.dart';
-// import 'screens/owner/owner_manage_store_screen.dart';
-// import 'screens/owner/owner_order_screen.dart';
-// import 'screens/owner/owner_history_screen.dart';
-// import 'screens/owner/owner_balance_report_screen.dart';
+import 'screens/owner/owner_manage_store_screen.dart';
+import 'screens/owner/owner_history_screen.dart';
+import 'screens/owner/owner_orderan_screen.dart';
+import 'screens/owner/owner_balance_report_screen.dart';
 // import 'screens/admin/admin_dashboard_screen.dart';
 // import 'screens/admin/admin_notification_screen.dart';
 // import 'screens/admin/admin_verification_screen.dart';
@@ -48,6 +48,7 @@ class RumahNugasApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Rumah Nugas',
       theme: ThemeData(
         primaryColor: primaryColor,
@@ -77,7 +78,7 @@ class RumahNugasApp extends StatelessWidget {
       routes: {
         // Common routes
         '/': (context) =>
-            const ChoiceLoginScreen(), // ChoiceLoginScreen will be the first screen
+            const choice.ChoiceLoginScreen(), // ChoiceLoginScreen will be the first screen
         '/register': (context) => const RegisterScreen(),
 
         // Rute untuk halaman login
@@ -91,23 +92,23 @@ class RumahNugasApp extends StatelessWidget {
         '/userNotification': (context) => const UserNotificationScreen(),
         '/userHistory': (context) => const UserHistoryScreen(),
         '/userListcafe': (context) =>
-            const UserListCafeScreen(kampus: '', warkopTerdekat: []),
+            const listcafe.UserListCafeScreen(kampus: '', warkopTerdekat: []),
         '/userDetailcafe': (context) => const UserDetailCafeScreen(
               namaCafe: '',
               ratingCafe: '',
               deskripsiCafe: '',
               lokasiCafe: '',
-              hargaCafe: '',
+              hargaCafe: '', imageUrl: '',
             ),
 
         // Owner routes
         '/ownerHome': (context) => const OwnerHomeScreen(),
         '/ownerNotification': (context) => const OwnerNotificationScreen(),
-        '/ownerInfopribadi': (context) => OwnerInfopribadiScreen(),
-        // '/ownerManageStore': (context) => const OwnerManageStoreScreen(),
-        // '/ownerOrder': (context) => const OwnerOrderScreen(),
-        // '/ownerHistory': (context) => const OwnerHistoryScreen(),
-        // '/ownerBalanceReport': (context) => const OwnerBalanceReportScreen(),
+        '/ownerInfopribadi': (context) => const OwnerInfopribadiScreen(),
+        '/ownerManageStore': (context) => const OwnerManageStoreScreen(),
+        '/ownerOrderan': (context) => const OwnerOrderanScreen(),
+        '/ownerHistory': (context) => const OwnerHistoryScreen(),
+        '/ownerBalanceReport': (context) => OwnerBalanceReportScreen(),
 
         // Admin routes
         // '/adminDashboard': (context) => const AdminDashboardScreen(),

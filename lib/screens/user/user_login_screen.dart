@@ -17,7 +17,6 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
       // Logic login (seperti autentikasi atau pengecekan kredensial)
       print('Email: ${_emailController.text}');
       print('Password: ${_passwordController.text}');
-
       // Jika login berhasil, arahkan ke halaman UserHomeScreen
       Navigator.pushReplacementNamed(context, '/userHome');
     }
