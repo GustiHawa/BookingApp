@@ -33,13 +33,15 @@ class _AdminCommissionreportScreenState
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Laporan Komisi'),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(size.width * 0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -61,30 +63,34 @@ class _AdminCommissionreportScreenState
                 ],
                 onChanged: (value) {},
               ),
-              const SizedBox(height: 16.0),
+              SizedBox(height: size.height * 0.02),
               Text(
                 'Daftar Laporan',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: size.width * 0.05,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 16.0),
-              DataTable(
-                columns: const [
-                  DataColumn(label: Text('Tanggal')),
-                  DataColumn(label: Text('User ')),
-                  DataColumn(label: Text('Total')),
-                  DataColumn(label: Text('Komisi')),
-                ],
-                rows: _data.map((item) {
-                  return DataRow(cells: [
-                    DataCell(Text(item['tanggal'])),
-                    DataCell(Text(item['user'])),
-                    DataCell(Text(item['total'])),
-                    DataCell(Text(item['komisi'])),
-                  ]);
-                }).toList(),
+              SizedBox(height: size.height * 0.02),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                  columnSpacing: size.width * 0.04,
+                  columns: const [
+                    DataColumn(label: Text('Tanggal')),
+                    DataColumn(label: Text('User')),
+                    DataColumn(label: Text('Total')),
+                    DataColumn(label: Text('Komisi')),
+                  ],
+                  rows: _data.map((item) {
+                    return DataRow(cells: [
+                      DataCell(Text(item['tanggal'])),
+                      DataCell(Text(item['user'])),
+                      DataCell(Text(item['total'])),
+                      DataCell(Text(item['komisi'])),
+                    ]);
+                  }).toList(),
+                ),
               ),
             ],
           ),

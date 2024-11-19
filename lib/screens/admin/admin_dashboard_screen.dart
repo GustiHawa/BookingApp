@@ -12,6 +12,8 @@ class AdminDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Admin Dashboard'),
@@ -31,94 +33,19 @@ class AdminDashboardScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(size.width * 0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Ringkasan Data',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: size.width * 0.05,
+                ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: size.height * 0.02),
 
-              // Bagian kode yang dikomentari untuk menampilkan ringkasan lainnya
-              /*
-              Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const FileScreen(),
-                          ),
-                        );
-                      },
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                'Total Booking Aktif',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                '15',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const FileScreen(),
-                          ),
-                        );
-                      },
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text(
-                                'Total Pengguna',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                '23',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              */
-
-              const SizedBox(height: 16),
               // Bagian Verifikasi dan Komisi
               Row(
                 children: [
@@ -135,19 +62,22 @@ class AdminDashboardScreen extends StatelessWidget {
                       },
                       child: Card(
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(size.width * 0.04),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 'Verifikasi Pembayaran',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.width * 0.04,
+                                ),
                               ),
-                              SizedBox(height: 8),
+                              SizedBox(height: size.height * 0.01),
                               Text(
                                 '2',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: size.width * 0.08,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -157,7 +87,7 @@ class AdminDashboardScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: size.width * 0.04),
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
@@ -171,19 +101,22 @@ class AdminDashboardScreen extends StatelessWidget {
                       },
                       child: Card(
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(size.width * 0.04),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 'Komisi',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.width * 0.04,
+                                ),
                               ),
-                              SizedBox(height: 8),
+                              SizedBox(height: size.height * 0.01),
                               Text(
                                 'Rp. 30.000',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: size.width * 0.08,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -195,7 +128,7 @@ class AdminDashboardScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: size.height * 0.02),
 
               // Bagian Manajemen Tempat dan Persetujuan Tempat
               Row(
@@ -213,19 +146,22 @@ class AdminDashboardScreen extends StatelessWidget {
                       },
                       child: Card(
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(size.width * 0.04),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 'Manajemen Tempat',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.width * 0.04,
+                                ),
                               ),
-                              SizedBox(height: 8),
+                              SizedBox(height: size.height * 0.01),
                               Text(
                                 '8',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: size.width * 0.08,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -235,7 +171,7 @@ class AdminDashboardScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 16),
+                  SizedBox(width: size.width * 0.04),
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
@@ -249,19 +185,22 @@ class AdminDashboardScreen extends StatelessWidget {
                       },
                       child: Card(
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: EdgeInsets.all(size.width * 0.04),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children: [
                               Text(
                                 'Persetujuan Tempat',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.width * 0.04,
+                                ),
                               ),
-                              SizedBox(height: 8),
+                              SizedBox(height: size.height * 0.01),
                               Text(
                                 '5',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: size.width * 0.08,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

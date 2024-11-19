@@ -103,7 +103,7 @@ class RumahNugasApp extends StatelessWidget {
               ratingCafe: '',
               deskripsiCafe: '',
               lokasiCafe: '',
-              hargaCafe: '', imageUrl: '',
+              hargaCafe: '',
             ),
 
         // Owner routes

@@ -12,8 +12,10 @@ dependencies:
     sdk: flutter
 
   # Menambahkan dependensi cached_network_image
-  cached_network_image: ^3.4.1
+  cached_network_image: ^3.2.0
   intl: ^0.18.0
+  shared_preferences: ^2.1.0
+  image_picker: ^0.8.7+3
 
   # Menambahkan dependensi cupertino_icons
   cupertino_icons: ^1.0.8

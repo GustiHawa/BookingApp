@@ -7,7 +7,7 @@ class AdminNotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Notifications'),
+        title: const Text('Admin Notifications'),
       ),
       body: NotificationList(),
     );
@@ -29,13 +29,19 @@ class NotificationList extends StatelessWidget {
     return ListView.builder(
       itemCount: notifications.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(notifications[index]),
-          leading: Icon(Icons.notifications),
-          trailing: Icon(Icons.arrow_forward),
-          onTap: () {
-            // Handle notification tap
-          },
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          child: Container(
+            padding: const EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Text(
+              notifications[index],
+              style: const TextStyle(fontSize: 16.0),
+            ),
+          ),
         );
       },
     );
@@ -43,7 +49,7 @@ class NotificationList extends StatelessWidget {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     home: AdminNotificationScreen(),
   ));
 }
