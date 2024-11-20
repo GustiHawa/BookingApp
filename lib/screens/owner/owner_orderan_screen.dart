@@ -22,8 +22,33 @@ class _OwnerOrderanScreenState extends State<OwnerOrderanScreen> {
       'jumlahKursi': '2 Kursi',
       'harga': 'Rp. 30.000',
     },
-    // Tambahkan data pesanan lainnya jika perlu
   ];
+
+  // Fungsi untuk menandai pesanan selesai
+  void _markAsCompleted(int index) {
+    setState(() {
+      orders.removeAt(index);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Pesanan telah diselesaikan!'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  // Fungsi untuk membatalkan pesanan
+  void _cancelOrder(int index) {
+    setState(() {
+      orders.removeAt(index);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Pesanan telah dibatalkan!'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,17 +62,26 @@ class _OwnerOrderanScreenState extends State<OwnerOrderanScreen> {
         ),
         title: const Text('Pesanan'),
       ),
-      body: ListView.builder(
-        itemCount: orders.length,
-        itemBuilder: (context, index) {
-          return _PesananItem(
-            namaCustomer: orders[index]['namaCustomer']!,
-            tanggal: orders[index]['tanggal']!,
-            jumlahKursi: orders[index]['jumlahKursi']!,
-            harga: orders[index]['harga']!,
-          );
-        },
-      ),
+      body: orders.isEmpty
+          ? const Center(
+              child: Text(
+                'Tidak ada pesanan saat ini.',
+                style: TextStyle(fontSize: 18.0),
+              ),
+            )
+          : ListView.builder(
+              itemCount: orders.length,
+              itemBuilder: (context, index) {
+                return _PesananItem(
+                  namaCustomer: orders[index]['namaCustomer']!,
+                  tanggal: orders[index]['tanggal']!,
+                  jumlahKursi: orders[index]['jumlahKursi']!,
+                  harga: orders[index]['harga']!,
+                  onComplete: () => _markAsCompleted(index),
+                  onCancel: () => _cancelOrder(index),
+                );
+              },
+            ),
     );
   }
 }
@@ -58,12 +92,16 @@ class _PesananItem extends StatelessWidget {
     required this.tanggal,
     required this.jumlahKursi,
     required this.harga,
+    required this.onComplete,
+    required this.onCancel,
   });
 
   final String namaCustomer;
   final String tanggal;
   final String jumlahKursi;
   final String harga;
+  final VoidCallback onComplete;
+  final VoidCallback onCancel;
 
   @override
   Widget build(BuildContext context) {
@@ -110,18 +148,14 @@ class _PesananItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ElevatedButton(
-                onPressed: () {
-                  // Aksi untuk menandai pesanan selesai
-                },
+                onPressed: onComplete,
                 child: const Text('Selesaikan'),
               ),
               const SizedBox(width: 8.0),
               ElevatedButton(
-                onPressed: () {
-                  // Aksi untuk membatalkan pesanan
-                },
+                onPressed: onCancel,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red, // Warna merah untuk batalkan
+                  backgroundColor: Colors.red,
                 ),
                 child: const Text('Batalkan'),
               ),

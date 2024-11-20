@@ -10,12 +10,12 @@ import "screens/admin/admin_login_screen.dart" as admin;
 
 import 'screens/register_screen.dart';
 import 'screens/user/user_home_screen.dart';
-import 'screens/user/user_notification_screen.dart';
+import 'package:rumah_nugas/screens/user/user_notification_screen.dart';
 import 'screens/user/user_history_screen.dart';
 import 'screens/user/user_search_screen.dart';
 import 'screens/user/user_listcafe_screen.dart' as listcafe;
 import 'screens/user/user_detailcafe_screen.dart';
-// import 'screens/user/user_booking_screen.dart';
+import 'screens/user/user_booking_screen.dart';
 // import 'screens/user/user_payment_screen.dart';
 
 import 'screens/owner/owner_home_screen.dart';
@@ -97,14 +97,15 @@ class RumahNugasApp extends StatelessWidget {
         '/userNotification': (context) => const UserNotificationScreen(),
         '/userHistory': (context) => const UserHistoryScreen(),
         '/userListcafe': (context) =>
-            const listcafe.UserListCafeScreen(kampus: '', warkopTerdekat: []),
+            listcafe.UserListCafeScreen(kampus: '', warkopTerdekat: [],),
         '/userDetailcafe': (context) => const UserDetailCafeScreen(
-              namaCafe: '',
-              ratingCafe: '',
-              deskripsiCafe: '',
-              lokasiCafe: '',
-              hargaCafe: '',
-            ),
+          cafeName: 'Cafe Example',
+          location: '123 Example St',
+          // rating: 4.5,
+          priceRange: '\$\$',
+          details: 'This is an example cafe.', rating: '', name: '', imageUrl: '',
+        ),
+        '/userBooking': (context) => const UserBookingScreen(cafeName: '',),
 
         // Owner routes
         '/ownerHome': (context) => const OwnerHomeScreen(),

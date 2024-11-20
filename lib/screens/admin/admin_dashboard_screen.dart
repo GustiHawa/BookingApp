@@ -50,7 +50,9 @@ class AdminDashboardScreen extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: GestureDetector(
+                    child: _DashboardCard(
+                      title: 'Verifikasi Pembayaran',
+                      value: '2',
                       onTap: () {
                         Navigator.push(
                           context,
@@ -60,36 +62,13 @@ class AdminDashboardScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Card(
-                        child: Padding(
-                          padding: EdgeInsets.all(size.width * 0.04),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Verifikasi Pembayaran',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: size.width * 0.04,
-                                ),
-                              ),
-                              SizedBox(height: size.height * 0.01),
-                              Text(
-                                '2',
-                                style: TextStyle(
-                                  fontSize: size.width * 0.08,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ),
                   ),
                   SizedBox(width: size.width * 0.04),
                   Expanded(
-                    child: GestureDetector(
+                    child: _DashboardCard(
+                      title: 'Komisi',
+                      value: 'Rp. 30.000',
                       onTap: () {
                         Navigator.push(
                           context,
@@ -99,31 +78,6 @@ class AdminDashboardScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Card(
-                        child: Padding(
-                          padding: EdgeInsets.all(size.width * 0.04),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Komisi',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: size.width * 0.04,
-                                ),
-                              ),
-                              SizedBox(height: size.height * 0.01),
-                              Text(
-                                'Rp. 30.000',
-                                style: TextStyle(
-                                  fontSize: size.width * 0.08,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ),
                   ),
                 ],
@@ -134,7 +88,9 @@ class AdminDashboardScreen extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: GestureDetector(
+                    child: _DashboardCard(
+                      title: 'Manajemen Tempat',
+                      value: '8',
                       onTap: () {
                         Navigator.push(
                           context,
@@ -144,36 +100,13 @@ class AdminDashboardScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Card(
-                        child: Padding(
-                          padding: EdgeInsets.all(size.width * 0.04),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Manajemen Tempat',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: size.width * 0.04,
-                                ),
-                              ),
-                              SizedBox(height: size.height * 0.01),
-                              Text(
-                                '8',
-                                style: TextStyle(
-                                  fontSize: size.width * 0.08,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ),
                   ),
                   SizedBox(width: size.width * 0.04),
                   Expanded(
-                    child: GestureDetector(
+                    child: _DashboardCard(
+                      title: 'Persetujuan Tempat',
+                      value: '5',
                       onTap: () {
                         Navigator.push(
                           context,
@@ -183,34 +116,56 @@ class AdminDashboardScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Card(
-                        child: Padding(
-                          padding: EdgeInsets.all(size.width * 0.04),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Persetujuan Tempat',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: size.width * 0.04,
-                                ),
-                              ),
-                              SizedBox(height: size.height * 0.01),
-                              Text(
-                                '5',
-                                style: TextStyle(
-                                  fontSize: size.width * 0.08,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ),
                   ),
                 ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DashboardCard extends StatelessWidget {
+  const _DashboardCard({
+    required this.title,
+    required this.value,
+    required this.onTap,
+  });
+
+  final String title;
+  final String value;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        elevation: 2.0,
+        child: Padding(
+          padding: EdgeInsets.all(size.width * 0.04),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: size.width * 0.04,
+                ),
+              ),
+              SizedBox(height: size.height * 0.01),
+              Text(
+                value,
+                style: TextStyle(
+                  fontSize: size.width * 0.08,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),

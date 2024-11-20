@@ -1,16 +1,5 @@
 import 'package:flutter/material.dart';
-
-// Mock data for cafes and warkops around campuses
-class CafeWarkop {
-  final String name;
-  final String campus;
-  final double rating;
-  final int price;
-  final String imageUrl;
-
-  // Perbaiki konstruktor untuk menambahkan parameter yang hilang
-  CafeWarkop(this.name, this.campus, this.rating, this.price, this.imageUrl);
-}
+import 'user_listcafe_screen.dart';
 
 class UserSearchScreen extends StatefulWidget {
   const UserSearchScreen({super.key});
@@ -20,63 +9,67 @@ class UserSearchScreen extends StatefulWidget {
 }
 
 class _UserSearchScreenState extends State<UserSearchScreen> {
-  // Data cafe yang sudah diperbaiki
-  final Map<String, List<CafeWarkop>> _cafes = {
-    'Kampus 1': [
-      CafeWarkop(
-          'Cafe A', 'Kampus 1', 4.5, 20000, 'https://example.com/cafe_a.jpg'),
-      CafeWarkop('Warkop B', 'Kampus 1', 4.0, 15000,
-          'https://example.com/warkop_b.jpg'),
-    ],
-    'Kampus A': [
-      // Pastikan ada 'Kampus A' di sini
-      CafeWarkop(
-          'Cafe A', 'Kampus A', 4.5, 20000, 'https://example.com/cafe_a.jpg'),
-      CafeWarkop('Warkop B', 'Kampus A', 4.0, 15000,
-          'https://example.com/warkop_b.jpg'),
-    ],
-    'Kampus 3': [
-      CafeWarkop(
-          'Cafe C', 'Kampus 3', 4.3, 25000, 'https://example.com/cafe_c.jpg'),
-    ],
-  };
-
   final TextEditingController _kampusController = TextEditingController();
 
-  // Function to navigate to the cafe list screen
-  void _navigateToCafeList() {
-    // Ambil input dan ubah menjadi huruf kapital agar pencarian tidak peka terhadap kapitalisasi
-    String inputKampus = _kampusController.text
-        .trim()
-        .toLowerCase(); // Menambahkan .toLowerCase()
-    print('Input Kampus: $inputKampus'); // Debugging, print input
+  // Simulating a function that fetches cafes based on the campus
+  Future<List<Map<String, String>>> _fetchCafes(String campusName) async {
+    // Simulate a network delay
+    await Future.delayed(const Duration(seconds: 2));
 
-    // Periksa apakah kampus yang dimasukkan ada di dalam map
+    // For now, return a dummy list of cafes
+    return [
+      {
+        'name': 'Cafe A',
+        'location': 'Jl. Contoh No.1',
+        'rating': '4.5',
+        'priceRange': 'Rp 20.000 - Rp 50.000',
+        'imageUrl': 'https://via.placeholder.com/150',
+      },
+      {
+        'name': 'Cafe B',
+        'location': 'Jl. Contoh No.2',
+        'rating': '4.0',
+        'priceRange': 'Rp 25.000 - Rp 60.000',
+        'imageUrl': 'https://via.placeholder.com/150',
+      },
+    ];
+  }
+
+  void _navigateToCafeList() {
+    String inputKampus = _kampusController.text.trim();
+
     if (inputKampus.isNotEmpty) {
-      // Gunakan .toLowerCase() untuk memeriksa apakah nama kampus ada di dalam map
-      final matchingKampus = _cafes.keys.firstWhere(
-        (key) => key.toLowerCase() == inputKampus,
-        orElse: () => '', // Jika tidak ditemukan, return string kosong
+      // Show loading dialog while fetching cafes
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator()),
       );
 
-      if (matchingKampus.isNotEmpty) {
-        // Jika kampus ditemukan, navigasi ke UserListCafeScreen
+      // Fetch cafes and then navigate
+      _fetchCafes(inputKampus).then((cafes) {
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context); // Dismiss loading indicator
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => UserListCafeScreen(
-              kampus: matchingKampus, // Mengirimkan nama kampus yang ditemukan
-              warkopTerdekat: _cafes[
-                  matchingKampus]!, // Mengirimkan daftar cafe yang relevan
+              kampus: inputKampus,
+              warkopTerdekat:
+                  cafes, // Pass the fetched cafes to the list screen
             ),
           ),
         );
-      } else {
-        // Jika kampus tidak ditemukan
+      }).catchError((e) {
+        Navigator.pop(context); // Dismiss loading indicator on error
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Kampus tidak ditemukan!')),
+          const SnackBar(content: Text('Terjadi kesalahan, coba lagi!')),
         );
-      }
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Masukkan nama kampus terlebih dahulu!')),
+      );
     }
   }
 
@@ -89,9 +82,7 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // TextField to input campus name
             TextField(
               controller: _kampusController,
               decoration: InputDecoration(
@@ -103,86 +94,12 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
               ),
             ),
             const SizedBox(height: 20.0),
-
-            // Button to search and navigate to UserListCafeScreen
             ElevatedButton(
               onPressed: _navigateToCafeList,
               child: const Text('Cari'),
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class UserListCafeScreen extends StatelessWidget {
-  final String kampus;
-  final List<CafeWarkop> warkopTerdekat;
-
-  const UserListCafeScreen(
-      {super.key, required this.kampus, required this.warkopTerdekat});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Daftar Cafe di $kampus'),
-      ),
-      body: ListView.builder(
-        itemCount: warkopTerdekat.length,
-        itemBuilder: (context, index) {
-          final cafe = warkopTerdekat[index];
-          return Card(
-            margin: const EdgeInsets.all(10),
-            child: Row(
-              children: [
-                // Menampilkan gambar cafe
-                Container(
-                  width: 100,
-                  height: 100,
-                  margin: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(
-                      image: NetworkImage(cafe.imageUrl),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                // Menampilkan detail cafe
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          cafe.name,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text('Lokasi: ${cafe.campus}'),
-                        const SizedBox(height: 4),
-                        Row(
-                          children: [
-                            const Icon(Icons.star, color: Colors.orange),
-                            Text(cafe.rating.toString()),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        Text('Harga: Rp. ${cafe.price}'),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
       ),
     );
   }

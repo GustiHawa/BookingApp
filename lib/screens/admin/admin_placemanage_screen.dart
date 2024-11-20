@@ -8,6 +8,29 @@ class AdminPlaceManageScreen extends StatefulWidget {
 }
 
 class _AdminPlaceManageScreenState extends State<AdminPlaceManageScreen> {
+  // Data tempat disimpan dalam list
+  List<Map<String, String>> places = [
+    {
+      "id": "1",
+      "name": "Warkop A",
+      "location": "Jl. Anggur, UPN",
+      "status": "Aktif"
+    },
+    {
+      "id": "2",
+      "name": "Cafe B",
+      "location": "Jl. Pukis, ITS",
+      "status": "Aktif"
+    },
+  ];
+
+  // Fungsi untuk menghapus tempat berdasarkan ID
+  void _deletePlace(String id) {
+    setState(() {
+      places.removeWhere((place) => place["id"] == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -47,40 +70,24 @@ class _AdminPlaceManageScreenState extends State<AdminPlaceManageScreen> {
                     DataColumn(label: Text('Status')),
                     DataColumn(label: Text('Hapus')),
                   ],
-                  rows: [
-                    DataRow(
+                  rows: places.map((place) {
+                    return DataRow(
                       cells: [
-                        DataCell(Text('1')),
-                        DataCell(Text('Warkop A')),
-                        DataCell(Text('Jl. Anggur, UPN')),
-                        DataCell(Text('Aktif')),
+                        DataCell(Text(place["id"]!)),
+                        DataCell(Text(place["name"]!)),
+                        DataCell(Text(place["location"]!)),
+                        DataCell(Text(place["status"]!)),
                         DataCell(
                           IconButton(
                             onPressed: () {
-                              // Implement Hapus logic
+                              _deletePlace(place["id"]!);
                             },
                             icon: const Icon(Icons.delete),
                           ),
                         ),
                       ],
-                    ),
-                    DataRow(
-                      cells: [
-                        DataCell(Text('2')),
-                        DataCell(Text('Cafe B')),
-                        DataCell(Text('Jl. Pukis, ITS')),
-                        DataCell(Text('Aktif')),
-                        DataCell(
-                          IconButton(
-                            onPressed: () {
-                              // Implement Hapus logic
-                            },
-                            icon: const Icon(Icons.delete),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                    );
+                  }).toList(),
                 ),
               ),
             ],
