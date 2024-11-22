@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+// Pastikan untuk mengimpor UserPaymentScreen
+import 'user_payment_screen.dart';
+
 class UserBookingScreen extends StatefulWidget {
-  const UserBookingScreen({Key? key, required String cafeName}) : super(key: key);
+  const UserBookingScreen({super.key, required String cafeName});
 
   @override
   State<UserBookingScreen> createState() => _UserBookingScreenState();
@@ -12,6 +15,7 @@ class _UserBookingScreenState extends State<UserBookingScreen> {
   final _nameController = TextEditingController();
   final _dateController = TextEditingController();
   int _numberOfPeople = 5;
+  final int pricePerPerson = 5000; // Harga per orang
 
   @override
   void dispose() {
@@ -36,6 +40,9 @@ class _UserBookingScreenState extends State<UserBookingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Hitung total harga berdasarkan jumlah orang
+    int totalPrice = _numberOfPeople * pricePerPerson;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Booking'),
@@ -104,12 +111,29 @@ class _UserBookingScreenState extends State<UserBookingScreen> {
                 ],
               ),
               const SizedBox(height: 16.0),
+              // Menampilkan total harga
+              Text(
+                'Total Harga: Rp ${totalPrice.toString()}',
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // Logika booking dapat ditambahkan di sini
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Booking berhasil')),
+                    // Navigasi ke halaman pembayaran (UserPaymentScreen)
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserPaymentScreen(
+                          customerName: _nameController.text,
+                          bookingDate: _dateController.text,
+                          numberOfPeople: _numberOfPeople,
+                          totalPrice: totalPrice, cafeName: '', // Kirim total harga
+                        ),
+                      ),
                     );
                   }
                 },

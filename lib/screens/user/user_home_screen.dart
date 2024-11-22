@@ -66,7 +66,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const UserHistoryScreen(),
+                    builder: (context) => UserHistoryScreen(),
                   ),
                 );
               },

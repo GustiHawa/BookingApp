@@ -77,17 +77,17 @@ class ChoiceLoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                    context, '/register'); // Rute untuk halaman register
-              },
-              child: const Text(
-                'Belum daftar? Register dulu',
-                style: TextStyle(fontSize: 16),
-              ),
-            ),
+            // const SizedBox(height: 20),
+            // TextButton(
+            //   onPressed: () {
+            //     Navigator.pushNamed(
+            //         context, '/register'); // Rute untuk halaman register
+            //   },
+            //   child: const Text(
+            //     'Belum daftar? Register dulu',
+            //     style: TextStyle(fontSize: 16),
+            //   ),
+          //   ),
           ],
         ),
       ),

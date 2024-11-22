@@ -12,6 +12,26 @@ class AdminVerificationScreen extends StatefulWidget {
 }
 
 class _AdminVerificationScreenState extends State<AdminVerificationScreen> {
+  // Daftar pembayaran yang akan ditampilkan
+  List<Pembayaran> pembayaranList = [
+    Pembayaran(
+      nomor: 1,
+      namaCustomer: 'John Doe',
+      tanggal: '18/11/2024',
+      jumlahKursi: '50.000',
+      waktu: '11.00 AM',
+      buktiTransfer: 'https://via.placeholder.com/150',
+    ),
+    Pembayaran(
+      nomor: 2,
+      namaCustomer: 'Jane Smith',
+      tanggal: '23/11/2024',
+      jumlahKursi: '30.000',
+      waktu: '01.00 PM',
+      buktiTransfer: 'https://via.placeholder.com/150',
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,27 +46,32 @@ class _AdminVerificationScreenState extends State<AdminVerificationScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _PembayaranItem(
-              nomor: 1,
-              namaCustomer: 'John Doe',
-              tanggal: '18/11/2024',
-              jumlahKursi: '50.000',
-              waktu: '11.00 AM',
-              buktiTransfer: 'https://via.placeholder.com/150',
-            ),
-            const SizedBox(height: 16.0),
-            _PembayaranItem(
-              nomor: 2,
-              namaCustomer: 'Jane Smith',
-              tanggal: '23/11/2024',
-              jumlahKursi: '30.000',
-              waktu: '01.00 PM',
-              buktiTransfer: 'https://via.placeholder.com/150',
-            ),
-          ],
+        child: ListView.builder(
+          itemCount: pembayaranList.length,
+          itemBuilder: (context, index) {
+            final pembayaran = pembayaranList[index];
+            return _PembayaranItem(
+              pembayaran: pembayaran,
+              onTerima: () {
+                setState(() {
+                  pembayaranList
+                      .removeAt(index); // Hapus pembayaran dari daftar
+                });
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Booking diterima')),
+                );
+              },
+              onTolak: () {
+                setState(() {
+                  pembayaranList
+                      .removeAt(index); // Hapus pembayaran dari daftar
+                });
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Booking ditolak')),
+                );
+              },
+            );
+          },
         ),
       ),
     );
@@ -55,20 +80,14 @@ class _AdminVerificationScreenState extends State<AdminVerificationScreen> {
 
 class _PembayaranItem extends StatelessWidget {
   const _PembayaranItem({
-    required this.nomor,
-    required this.namaCustomer,
-    required this.tanggal,
-    required this.jumlahKursi,
-    required this.waktu,
-    required this.buktiTransfer,
+    required this.pembayaran,
+    required this.onTerima,
+    required this.onTolak,
   });
 
-  final int nomor;
-  final String namaCustomer;
-  final String tanggal;
-  final String jumlahKursi;
-  final String waktu;
-  final String buktiTransfer;
+  final Pembayaran pembayaran;
+  final VoidCallback onTerima;
+  final VoidCallback onTolak;
 
   @override
   Widget build(BuildContext context) {
@@ -81,16 +100,16 @@ class _PembayaranItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '$nomor. $namaCustomer',
+              '${pembayaran.nomor}. ${pembayaran.namaCustomer}',
               style: const TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 8.0),
-            Text('Tanggal: $tanggal'),
-            Text('Jumlah Kursi: $jumlahKursi'),
-            Text('Waktu: $waktu'),
+            Text('Tanggal: ${pembayaran.tanggal}'),
+            Text('Jumlah Kursi: ${pembayaran.jumlahKursi}'),
+            Text('Waktu: ${pembayaran.waktu}'),
             const SizedBox(height: 8.0),
             const Text(
               'Bukti Transfer:',
@@ -105,7 +124,8 @@ class _PembayaranItem extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) =>
                         adminDetailScreen.AdminDetailPaymentScreen(
-                      buktiTransfer: buktiTransfer, // Kirim data bukti transfer
+                      buktiTransfer:
+                          pembayaran.buktiTransfer, // Kirim data bukti transfer
                     ),
                   ),
                 );
@@ -120,24 +140,14 @@ class _PembayaranItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    // Logika untuk menerima booking
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Booking diterima')),
-                    );
-                  },
+                  onPressed: onTerima,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                   ),
                   child: const Text('Terima'),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    // Logika untuk menolak booking
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Booking ditolak')),
-                    );
-                  },
+                  onPressed: onTolak,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                   ),
@@ -150,4 +160,23 @@ class _PembayaranItem extends StatelessWidget {
       ),
     );
   }
+}
+
+// Model untuk menyimpan informasi pembayaran
+class Pembayaran {
+  Pembayaran({
+    required this.nomor,
+    required this.namaCustomer,
+    required this.tanggal,
+    required this.jumlahKursi,
+    required this.waktu,
+    required this.buktiTransfer,
+  });
+
+  final int nomor;
+  final String namaCustomer;
+  final String tanggal;
+  final String jumlahKursi;
+  final String waktu;
+  final String buktiTransfer;
 }

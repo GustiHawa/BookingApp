@@ -22,14 +22,14 @@ class _UserSearchScreenState extends State<UserSearchScreen> {
         'name': 'Cafe A',
         'location': 'Jl. Contoh No.1',
         'rating': '4.5',
-        'priceRange': 'Rp 20.000 - Rp 50.000',
+        'priceRange': 'Rp 5000',
         'imageUrl': 'https://via.placeholder.com/150',
       },
       {
         'name': 'Cafe B',
         'location': 'Jl. Contoh No.2',
         'rating': '4.0',
-        'priceRange': 'Rp 25.000 - Rp 60.000',
+        'priceRange': 'Rp 5000',
         'imageUrl': 'https://via.placeholder.com/150',
       },
     ];
